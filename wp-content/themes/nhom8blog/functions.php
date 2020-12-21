@@ -178,3 +178,59 @@
         register_widget( 'nhom8blog_latest_post' ); // gọi ID widget
     }
     add_action( 'widgets_init', 'nhom8blog_load_widget_latest_post' );
+
+    //Bình luận bài viết
+    function nhom8blog_comment( $comment, $args, $depth ) {
+    $GLOBALS['comment'] = $comment;
+    ?>
+    <?php if ( $comment->comment_approved == '1' ): ?>
+        <li class="media mb-4">
+            <?php echo '<img class="d-flex mr-3 rounded-circle" src="'.get_avatar_url($comment).'" style="width: 60px;">' ?>
+            <div class="media-body">
+                <?php echo  '<h5 class="mt-0 mb-0"><a rel="nofllow" href="'.get_comment_author_url().'">'.get_comment_author().'</a> - <small>'.get_comment_date().' - '.get_comment_time().'</small></h5>' ?>
+                <p class="mt-1">
+                    <?php comment_text() ?>
+                </p>
+
+                <div class="reply">
+                    <?php comment_reply_link(array_merge( $args, array('reply_text' => 'Trả lời','depth' => $depth, 'max_depth' => $args['max_depth']))) ?>
+                </div>
+            </div>
+        </li>
+    <?php endif;
+    }
+
+    function register_widget_areas()
+    {
+
+    register_sidebar(array(
+        'name'          => 'Footer area one',
+        'id'            => 'footer_area_one',
+        'description'   => 'This widget area description',
+        'before_widget' => '<section class="footer-area footer-area-one">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h1>',
+        'after_title'   => '</h1>',
+    ));
+
+    register_sidebar(array(
+        'name'          => 'Footer area two',
+        'id'            => 'footer_area_two',
+        'description'   => 'This widget area description',
+        'before_widget' => '<section class="footer-area footer-area-two">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h4>',
+        'after_title'   => '</h4>',
+    ));
+
+    register_sidebar(array(
+        'name'          => 'Footer area three',
+        'id'            => 'footer_area_three',
+        'description'   => 'This widget area description',
+        'before_widget' => '<section class="footer-area footer-area-three">',
+        'after_widget'  => '</section>',
+        'before_title'  => '<h4>',
+        'after_title'   => '</h4>',
+    ));
+    }  
+    add_action( 'widgets_init', 'register_widget_areas' );

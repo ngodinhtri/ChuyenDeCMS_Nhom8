@@ -26,3 +26,13 @@
 
 <!-- Bài viết liên quan -->
 <?php echo nhom8_blog_related_post('Bài viết liên quan', 4) ?>
+
+<!-- Bình luận trong bài viết -->
+<hr>
+<div class="mt-3">
+  <?php 
+    if ( comments_open() || get_comments_number() ) {
+      comments_template();
+    }
+  ?>
+</div>
