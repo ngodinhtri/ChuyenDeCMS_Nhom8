@@ -234,3 +234,4 @@
     ));
     }  
     add_action( 'widgets_init', 'register_widget_areas' );
+    
